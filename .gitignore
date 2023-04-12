@@ -23,5 +23,4 @@ pnpm-debug.log*
 *.sw?
 
 # sqlitedb
-
 /backend/db.sqlite3
