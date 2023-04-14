@@ -1,10 +1,11 @@
-import { createApp } from "vue";
+import { createApp, h } from "vue";
 import App from "./App.vue";
 import {
   ApolloClient,
   createHttpLink,
   InMemoryCache,
 } from "@apollo/client/core";
+import { createApolloProvider } from "@vue/apollo-option";
 import router from "./router";
 
 // HTTP connection to the API
@@ -22,7 +23,19 @@ const apolloClient = new ApolloClient({
   cache,
 });
 
-const myApp = createApp(App);
+//Create the apollo provider
+const apolloProvider = createApolloProvider({
+  defaultClient: apolloClient,
+});
+
+//create app
+const myApp = createApp({
+  render: () => h(App),
+});
+
+//add routes
 myApp.use(router);
-myApp.use(apolloClient);
+//add apollo
+myApp.use(apolloProvider);
+//mount
 myApp.mount("#app");
